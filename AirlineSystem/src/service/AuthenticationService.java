@@ -1,6 +1,6 @@
 package service;
 
-import airline.reservation.model.Person;
+import person.Person;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,10 +23,7 @@ public class AuthenticationService {
         return INSTANCE;
     }
 
-    /**
-     * Registers a Person so they can later be authenticated. Called
-     * automatically from Person's constructor - not normally called directly.
-     */
+
     public void registerUser(Person person) {
         if (person == null || person.getId() == null) {
             throw new IllegalArgumentException("Person and Person id must not be null");
@@ -34,12 +31,7 @@ public class AuthenticationService {
         registeredUsers.put(person.getId(), person);
     }
 
-    /**
-     * Checks id/password against the registered user and, if valid,
-     * starts a session for that user.
-     *
-     * @return true if credentials were valid and a session was started
-     */
+
     public boolean authenticate(String id, String password) {
         if (id == null || password == null) {
             return false;
@@ -55,10 +47,7 @@ public class AuthenticationService {
         return true;
     }
 
-    /**
-     * Ends the session for the given user id. Safe to call even if the
-     * user has no active session.
-     */
+
     public void logoutUser(String id) {
         activeSessions.remove(id);
     }

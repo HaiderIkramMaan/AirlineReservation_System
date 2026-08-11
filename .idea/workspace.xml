@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/model/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/model/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Seat.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/seat/Seat.java" afterDir="false" />
+    <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="creating the enum to resolve the error in model package and creating the class ailline">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/service/FlightRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/service/FlightRegistry.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -34,21 +34,80 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "HaiderIkramMaan"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;HaiderIkramMaan&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/HaiderIkramMaan/AirlineReservation_System.git",
-    "accountId": "eb90c10c-b281-48aa-ba8e-f43f0cc5b40c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/HaiderIkramMaan/AirlineReservation_System.git&quot;,
+    &quot;accountId&quot;: &quot;eb90c10c-b281-48aa-ba8e-f43f0cc5b40c&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000087646818498" />
+      <entry key="S60" value="1.0157245214671844" />
+      <entry key="M2" value="1.6725824081467688" />
+      <entry key="M5" value="7.460061455998596" />
+      <entry key="M10" value="15.752920167381886" />
+      <entry key="M15" value="22.234269685261847" />
+      <entry key="M30" value="36.433236616355714" />
+      <entry key="H1" value="51.56998612332642" />
+      <entry key="H2" value="63.657543929447186" />
+      <entry key="H4" value="71.51414918894052" />
+      <entry key="D1" value="79.28880014067555" />
+      <entry key="W1" value="80.75209996390346" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.6973718331752027" />
+      <entry key="MS500" value="0.9304496577030154" />
+      <entry key="S2" value="0.9821395952633915" />
+      <entry key="S5" value="0.9928171898989521" />
+      <entry key="S10" value="0.9964021225885421" />
+      <entry key="S30" value="0.9988080281238536" />
+      <entry key="S60" value="1.0151213337121112" />
+      <entry key="M2" value="1.6722248111716451" />
+      <entry key="M5" value="7.45971354010682" />
+      <entry key="M10" value="15.752488290478695" />
+      <entry key="M15" value="22.233703729809537" />
+      <entry key="M30" value="36.43249147264826" />
+      <entry key="H1" value="51.56931601602443" />
+      <entry key="H2" value="63.65708283363938" />
+      <entry key="H4" value="71.51387685421236" />
+      <entry key="D1" value="79.28874779774212" />
+      <entry key="W1" value="80.75209229866525" />
+    </decayedShown>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -58,6 +117,9 @@
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3HfuftT0HfUaHu3zUb59zawc7LJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -72,6 +134,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/HP/OneDrive/Documents/GitHub/AirlineReservation_System",
@@ -121,9 +184,48 @@
       <option name="presentableId" value="Default" />
       <updated>1786271552951</updated>
     </task>
+    <task id="LOCAL-00001" summary="creating seat package &#10;adding seat class">
+      <option name="closed" value="true" />
+      <created>1786473071356</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1786473071356</updated>
+    </task>
+    <task id="LOCAL-00002" summary="I have created the package and adding the related classes in this package">
+      <option name="closed" value="true" />
+      <created>1786476930013</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1786476930013</updated>
+    </task>
+    <task id="LOCAL-00003" summary="I have created the package and adding the related classes in this package">
+      <option name="closed" value="true" />
+      <created>1786476975233</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1786476975233</updated>
+    </task>
+    <task id="LOCAL-00004" summary="creating the enum to resolve the error in model package and creating the class ailline">
+      <option name="closed" value="true" />
+      <created>1786479208075</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1786479208075</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="creating seat package &#10;adding seat class" />
+    <MESSAGE value="I have created the package and adding the related classes in this package" />
+    <MESSAGE value="creating the enum to resolve the error in model package and creating the class ailline" />
+    <option name="LAST_COMMIT_MESSAGE" value="creating the enum to resolve the error in model package and creating the class ailline" />
   </component>
 </project>

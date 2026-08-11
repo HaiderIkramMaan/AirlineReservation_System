@@ -1,7 +1,6 @@
 package service;
-//package airline.reservation.service;
 
-import airline.reservation.model.Flight;
+import model.Flight;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,4 +38,3 @@ public class FlightRegistry {
         return Collections.unmodifiableList(new ArrayList<>(flights.values()));
     }
 }
-

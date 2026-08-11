@@ -1,5 +1,6 @@
-package model;
+package booking;
 
+import flight.Flight;
 import person.Passenger;
 import seat.Seat;
 

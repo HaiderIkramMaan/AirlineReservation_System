@@ -31,11 +31,6 @@ public abstract class Seat {
         isAvailable = true;
     }
 
-    /**
-     * Default price calculation using priceMultiplier. The diagram shows
-     * every subclass overriding this with its own formula, so this default
-     * mostly exists as a fallback / for consistency.
-     */
     public double getPrice(double basePrice) {
         return basePrice * priceMultiplier;
     }

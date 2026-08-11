@@ -31,11 +31,11 @@ public class Main {
         // 3. Test Login and Password Verification
         System.out.println("\n--- Testing Authentication ---");
         passenger.login();
-        System.out.println("Passenger password verification (valid): " + passenger.verifyPassword("securePass123"));
-        System.out.println("Passenger password verification (invalid): " + passenger.verifyPassword("wrongPass"));
+        System.out.println("Passenger password verification (valid): " + passenger.checkPassword("securePass123"));
+        System.out.println("Passenger password verification (invalid): " + passenger.checkPassword("wrongPass"));
 
         admin.login();
-        System.out.println("Admin password verification (valid): " + admin.verifyPassword("adminPass456"));
+        System.out.println("Admin password verification (valid): " + admin.checkPassword("adminPass456"));
 
         // 4. Test Notification Module
         System.out.println("\n--- Testing Notifications ---");

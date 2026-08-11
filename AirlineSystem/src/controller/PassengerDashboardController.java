@@ -7,7 +7,7 @@ import model.Booking;
 import model.Flight;
 import model.Passenger;
 import model.Payment;
-import model.Seat;
+import seat.Seat;
 
 import java.time.LocalDate;
 import java.util.List;

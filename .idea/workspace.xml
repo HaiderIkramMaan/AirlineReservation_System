@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="" />
+    <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/model/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/model/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/model/Seat.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/seat/Seat.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="29" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -25,6 +34,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "HaiderIkramMaan"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/HaiderIkramMaan/AirlineReservation_System.git",
+    "accountId": "eb90c10c-b281-48aa-ba8e-f43f0cc5b40c"
+  }
+}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -40,11 +65,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/HP/OneDrive/Documents/GitHub/AirlineReservation_System",
     "node.js.detected.package.eslint": "true",
@@ -55,7 +83,8 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RecentsManager">

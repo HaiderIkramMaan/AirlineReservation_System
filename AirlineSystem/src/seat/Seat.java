@@ -1,4 +1,4 @@
-package model;
+package seat;
 
 public class Seat {
 

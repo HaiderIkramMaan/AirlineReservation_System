@@ -1,6 +1,4 @@
-package flight;
-
-import booking.Booking;
+package booking;
 
 import java.time.LocalDate;
 

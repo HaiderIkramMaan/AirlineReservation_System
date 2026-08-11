@@ -1,6 +1,6 @@
 package model;
+
 import java.time.LocalDate;
-import person.Passenger;
 
 public class Ticket {
 
@@ -8,7 +8,9 @@ public class Ticket {
     private String eTicketNo;
     private LocalDate issueDate;
 
-
+    // Not in the diagram's field list, but a ticket that can't say which
+    // booking/flight/seat it's for isn't very useful to print. Kept as a
+    // back-reference to the Booking it was generated from.
     private final Booking booking;
 
     public Ticket(String ticketId, String eTicketNo, LocalDate issueDate, Booking booking) {
@@ -27,9 +29,9 @@ public class Ticket {
         System.out.println("Issue Date:    " + issueDate);
         if (booking != null) {
             System.out.println("Passenger:     " + booking.getPassenger().getName());
-            System.out.println("Flight:        " + booking.getFlight().getFlightNo());
-            System.out.println("Seat:          " + booking.getSeat().getSeatNo()
-                    + " (" + booking.getSeat().getSeatClass() + ")");
+            System.out.println("Flight:        " + booking.getFlight().getFlightNumber());
+            System.out.println("Seat:          " + booking.getSeat().getSeatNumber()
+                    + " (" + booking.getSeat().getTravelClass() + ")");
         }
         System.out.println("========================================");
     }
@@ -50,4 +52,3 @@ public class Ticket {
         return booking;
     }
 }
-

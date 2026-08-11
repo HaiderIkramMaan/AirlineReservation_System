@@ -1,7 +1,9 @@
 package model;
 
 import seat.Seat;
+import seat.TravelClass;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,65 +13,38 @@ import java.util.stream.Collectors;
 public class Flight {
 
     private String flightId;
-    private String flightNo;
+    private String flightNumber;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
-    private final List<Seat> seats;
+    private double basePrice;
+    private String status;
 
+    // Not shown as fields in the Flight box itself, but the "operated by"
+    // and "origin/dest" associations in the diagram need somewhere to live.
     private final Airline airline;
     private final Airport origin;
     private final Airport destination;
 
+    // Backs getAvailableSeats()/addSeat()/removeSeat() - the "composed of"
+    // relationship to Seat implies Flight owns a seat collection.
+    private final List<Seat> seats = new ArrayList<>();
 
-
-    public Flight(String flightId, String flightNo, LocalDateTime departureTime,
-                  LocalDateTime arrivalTime, Airline airline, Airport origin,
-                  Airport destination, List<Seat> seats) {
+    public Flight(String flightId, String flightNumber, LocalDateTime departureTime,
+                  LocalDateTime arrivalTime, double basePrice, Airline airline,
+                  Airport origin, Airport destination) {
         this.flightId = flightId;
-        this.flightNo = flightNo;
+        this.flightNumber = flightNumber;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.basePrice = basePrice;
+        this.status = "SCHEDULED";
         this.airline = airline;
         this.origin = origin;
         this.destination = destination;
-        this.seats = new ArrayList<>(seats);
 
-        // Self-registers with its Airline, same pattern as Person <-> AuthenticationService.
         if (airline != null) {
             airline.addFlight(this);
         }
-    }
-
-
-    public Flight(String flightId, String flightNo, LocalDateTime departureTime,
-                  LocalDateTime arrivalTime, Airline airline, Airport origin,
-                  Airport destination, int businessRows, int economyRows) {
-        this(flightId, flightNo, departureTime, arrivalTime, airline, origin,
-                destination, generateSeats(flightId, businessRows, economyRows));
-    }
-
-    private static List<Seat> generateSeats(String flightId, int businessRows, int economyRows) {
-        List<Seat> generated = new ArrayList<>();
-        char[] businessLetters = {'A', 'B', 'C', 'D'};
-        char[] economyLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
-
-        for (int row = 1; row <= businessRows; row++) {
-            for (char letter : businessLetters) {
-                String seatNo = row + String.valueOf(letter);
-                generated.add(new Seat(flightId + "-" + seatNo, seatNo, "Business"));
-            }
-        }
-        for (int row = 1; row <= economyRows; row++) {
-            for (char letter : economyLetters) {
-                String seatNo = (row + businessRows) + String.valueOf(letter);
-                generated.add(new Seat(flightId + "-" + seatNo, seatNo, "Economy"));
-            }
-        }
-        return generated;
-    }
-
-    public boolean checkAvailability() {
-        return seats.stream().anyMatch(Seat::isAvailable);
     }
 
     public List<Seat> getAvailableSeats() {
@@ -78,12 +53,47 @@ public class Flight {
                 .collect(Collectors.toList());
     }
 
+    public List<Seat> getAvailableSeatsByClass(TravelClass travelClass) {
+        return seats.stream()
+                .filter(Seat::isAvailable)
+                .filter(s -> s.getTravelClass() == travelClass)
+                .collect(Collectors.toList());
+    }
+
+    public double getOccupancyRate() {
+        if (seats.isEmpty()) {
+            return 0.0;
+        }
+        long booked = seats.stream().filter(s -> !s.isAvailable()).count();
+        return (double) booked / seats.size();
+    }
+
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+    }
+
+    public boolean removeSeat(String seatId) {
+        return seats.removeIf(s -> s.getSeatId().equals(seatId));
+    }
+
+    public Duration getFlightDuration() {
+        return Duration.between(departureTime, arrivalTime);
+    }
+
+    public boolean isFullyBooked() {
+        return !seats.isEmpty() && seats.stream().noneMatch(Seat::isAvailable);
+    }
+
+    public List<Seat> getSeats() {
+        return Collections.unmodifiableList(seats);
+    }
+
     public String getFlightId() {
         return flightId;
     }
 
-    public String getFlightNo() {
-        return flightNo;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
     public LocalDateTime getDepartureTime() {
@@ -102,8 +112,20 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public List<Seat> getSeats() {
-        return Collections.unmodifiableList(seats);
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Airline getAirline() {
@@ -118,4 +140,3 @@ public class Flight {
         return destination;
     }
 }
-

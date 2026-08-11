@@ -1,98 +1,70 @@
 package model;
+
+import person.Passenger;
 import seat.Seat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public class Booking{
-
-    public static final String STATUS_PENDING = "PENDING";
-    public static final String STATUS_CONFIRMED = "CONFIRMED";
-    public static final String STATUS_CANCELLED = "CANCELLED";
+public class Booking {
 
     private String bookingId;
     private LocalDateTime bookingDate;
-    private String status;
-    private Passenger passenger;
-    private Flight flight;
-    private Seat seat;
+    private BookingStatus status;
+
+    // Not listed as fields in the Booking box, but the "makes"/"composed of"/
+    // "references" associations to Passenger, Flight, and Seat need to be
+    // backed by something - this is how getTotalPrice() and cancel() work.
+    private final Passenger passenger;
+    private final Flight flight;
+    private final Seat seat;
 
 
-    Booking(String bookingId, Passenger passenger, Flight flight, Seat seat) {
+    public Booking(String bookingId, Passenger passenger, Flight flight, Seat seat) {
         this.bookingId = bookingId;
         this.bookingDate = LocalDateTime.now();
-        this.status = STATUS_PENDING;
+        this.status = BookingStatus.PENDING;
         this.passenger = passenger;
         this.flight = flight;
         this.seat = seat;
     }
 
-    /**
-     * Marks this booking CONFIRMED. The seat is already reserved at booking
-     * time (see Passenger.bookTicket()) to prevent a second passenger from
-     * grabbing it while this one is mid-payment - confirmBooking() just
-     * finalizes the status once payment succeeds.
-     *
-     * TODO (integration point for Person B): this is where
-     * InvalidBookingException / SeatUnavailableException should be thrown
-     * instead of the placeholder IllegalStateException below, and where
-     * NotificationService.notifyBookingConfirmation() should be called once
-     * those classes exist. Left as plain exceptions for now so this compiles
-     * independently of Person B's package.
-     */
-    public void confirmBooking() {
-        if (!STATUS_PENDING.equals(status)) {
+
+    public void confirm() {
+        if (status != BookingStatus.PENDING) {
             throw new IllegalStateException(
                     "Booking " + bookingId + " cannot be confirmed from status " + status);
-            // TODO: replace with InvalidBookingException once available.
         }
-        this.status = STATUS_CONFIRMED;
-        // TODO: NotificationService.getInstance().notifyBookingConfirmation(this);
+        status = BookingStatus.CONFIRMED;
     }
 
-    /**
-     * Cancels the booking and releases the seat back to the pool.
-     *
-     * TODO (Person B integration): call
-     * NotificationService.notifyCancellation() here once that class exists.
-     */
     public void cancel() {
-        if (STATUS_CANCELLED.equals(status)) {
+        if (status == BookingStatus.CANCELLED) {
             throw new IllegalStateException("Booking " + bookingId + " is already cancelled");
         }
         if (seat != null && !seat.isAvailable()) {
             seat.release();
         }
-        this.status = STATUS_CANCELLED;
-        // TODO: NotificationService.getInstance().notifyCancellation(this);
+        status = BookingStatus.CANCELLED;
     }
 
-    /**
-     * Generates a Ticket for this booking. Only valid once the booking is
-     * CONFIRMED (i.e. after payment has gone through).
-     */
-    public Ticket generateTicket() {
-        if (!STATUS_CONFIRMED.equals(status)) {
-            throw new IllegalStateException(
-                    "Cannot generate a ticket for a booking that is not CONFIRMED (current status: "
-                            + status + ")");
-        }
-        String ticketId = "TKT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        String eTicketNo = "E" + bookingId;
-        return new Ticket(ticketId, eTicketNo, LocalDate.now(), this);
+    public double getTotalPrice() {
+        return seat.getPrice(flight.getBasePrice());
     }
 
     public String getBookingId() {
         return bookingId;
     }
 
-    public LocalDateTime getBookingDate() {
-        return bookingDate;
+    public BookingStatus getStatus() {
+        return status;
     }
 
-    public String getStatus() {
-        return status;
+    public void updateStatus(BookingStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getBookingDate() {
+        return bookingDate;
     }
 
     public Passenger getPassenger() {
@@ -107,5 +79,3 @@ public class Booking{
         return seat;
     }
 }
-
-

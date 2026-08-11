@@ -1,5 +1,6 @@
 package model;
 import java.time.LocalDate;
+import person.Passenger;
 
 public class Ticket {
 

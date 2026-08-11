@@ -1,3 +1,5 @@
+package person;
+
 public class Admin extends Person {
     private String employeeId;
     private String department;

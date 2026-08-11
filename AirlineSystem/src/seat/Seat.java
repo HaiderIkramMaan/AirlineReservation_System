@@ -1,48 +1,72 @@
 package seat;
 
-public class Seat {
+public abstract class Seat {
 
-    private String seatId;
-    private String seatNo;
-    private String seatClass;
+    private final String seatId;
+    private final String seatNumber;
+    private final int row;
+    private final int column;
     private boolean isAvailable;
+    private final double priceMultiplier;
 
-    public Seat(String seatId, String seatNo, String seatClass) {
+    protected Seat(String seatId, String seatNumber, int row, int column, double priceMultiplier) {
         this.seatId = seatId;
-        this.seatNo = seatNo;
-        this.seatClass = seatClass;
+        this.seatNumber = seatNumber;
+        this.row = row;
+        this.column = column;
+        this.priceMultiplier = priceMultiplier;
         this.isAvailable = true;
     }
 
-    public void reserve() {
+
+    public boolean book() {
         if (!isAvailable) {
-            throw new IllegalStateException("Seat " + seatNo + " is already reserved");
+            return false;
         }
         isAvailable = false;
+        return true;
     }
 
     public void release() {
         isAvailable = true;
     }
 
-    public String getSeatId() {
-        return seatId;
+    /**
+     * Default price calculation using priceMultiplier. The diagram shows
+     * every subclass overriding this with its own formula, so this default
+     * mostly exists as a fallback / for consistency.
+     */
+    public double getPrice(double basePrice) {
+        return basePrice * priceMultiplier;
     }
 
-    public String getSeatNo() {
-        return seatNo;
-    }
 
-    public String getSeatClass() {
-        return seatClass;
-    }
+    public abstract String getLayoutColor();
 
-    public void setSeatClass(String seatClass) {
-        this.seatClass = seatClass;
-    }
+
+    public abstract TravelClass getTravelClass();
 
     public boolean isAvailable() {
         return isAvailable;
     }
-}
 
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    protected double getPriceMultiplier() {
+        return priceMultiplier;
+    }
+}

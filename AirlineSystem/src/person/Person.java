@@ -33,7 +33,7 @@ public abstract class Person implements DataSerializer<Person> {
         System.out.println("Profile updated for user: " + id);
     }
 
-    public boolean verifyPassword(String password) {
+    public boolean checkPassword(String password) {
         return this.password != null && this.password.equals(password);
     }
 

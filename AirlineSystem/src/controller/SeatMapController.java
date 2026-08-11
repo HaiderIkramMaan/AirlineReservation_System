@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import model.Flight;
-import model.Seat;
+import seat.Seat;
 
 /**
  * SeatMapController — realizes ViewController (curved arrow back to it on

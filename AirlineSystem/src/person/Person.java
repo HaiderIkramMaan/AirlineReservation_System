@@ -1,3 +1,5 @@
+package person;
+
 public abstract class Person implements DataSerializer<Person> {
     private String id;
     private String name;

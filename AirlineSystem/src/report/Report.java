@@ -1,8 +1,7 @@
 package report;
-
 // TODO: Either Rahim or Haider plz work on the Admin class so we can properly test this
 // placing the Admin class (per the UML, Report.generatedBy is an Admin).
-import models.Admin;
+import person.Admin;
 
 import java.io.File;
 import java.io.FileWriter;

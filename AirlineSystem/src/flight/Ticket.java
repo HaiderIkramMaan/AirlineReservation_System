@@ -10,9 +10,7 @@ public class Ticket {
     private String eTicketNo;
     private LocalDate issueDate;
 
-    // Not in the diagram's field list, but a ticket that can't say which
-    // booking/flight/seat it's for isn't very useful to print. Kept as a
-    // back-reference to the Booking it was generated from.
+
     private final Booking booking;
 
     public Ticket(String ticketId, String eTicketNo, LocalDate issueDate, Booking booking) {

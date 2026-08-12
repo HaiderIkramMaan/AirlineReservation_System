@@ -3,12 +3,12 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
-import model.Admin;
-import model.DataSerializer;
+import person.Admin;
+import person.DataSerializer;
 import model.FileManager;
-import model.Flight;
-import model.Passenger;
-import model.Report;
+import flight.Flight;
+import person.Passenger;
+import report.Report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class AdminDashboardController extends ViewController {
         List<Flight> flights = new ArrayList<>();
         if (rows != null && flightSerializer != null) {
             for (String row : rows) {
-                flights.add(flightSerializer.deserialize(row));
+                flights.add(flightSerializer.deserializeData(row));
             }
         }
         flightTable.getItems().setAll(flights);
@@ -87,7 +87,7 @@ public class AdminDashboardController extends ViewController {
         List<Passenger> passengers = new ArrayList<>();
         if (rows != null && passengerSerializer != null) {
             for (String row : rows) {
-                passengers.add(passengerSerializer.deserialize(row));
+                passengers.add(passengerSerializer.deserializeData(row));
             }
         }
         // Handed off to whichever panel renders the passenger list; the

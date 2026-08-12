@@ -2,7 +2,7 @@ package report;
 
 // TODO: adjust to match your teammates' actual package names
 import person.Admin;
-import model.Booking;
+import booking.Booking;
 
 import java.io.File;
 import java.util.List;

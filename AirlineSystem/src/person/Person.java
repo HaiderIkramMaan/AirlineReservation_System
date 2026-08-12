@@ -1,5 +1,7 @@
 package person;
 
+import service.AuthenticationService;
+
 public abstract class Person implements DataSerializer<Person> {
     private String id;
     private String name;
@@ -7,7 +9,9 @@ public abstract class Person implements DataSerializer<Person> {
     private String password;
     private String phone;
 
-    public Person() {}
+    public Person() {
+        // no-op
+    }
 
     public Person(String id, String name, String email, String password, String phone) {
         this.id = id;
@@ -15,15 +19,27 @@ public abstract class Person implements DataSerializer<Person> {
         this.email = email;
         this.password = password;
         this.phone = phone;
+
+        // Register with AuthenticationService upon construction so the
+        // service knows of all users (per UML note).
+        try {
+            AuthenticationService.getInstance().registerUser(this);
+        } catch (Exception ignored) {}
     }
 
+    /**
+     * Simple login helper used in test harnesses. Records an active session
+     * via AuthenticationService without performing credential checks.
+     */
     public boolean login() {
         System.out.println("User " + name + " (" + email + ") logged in successfully.");
+        AuthenticationService.getInstance().loginUser(this);
         return true;
     }
 
     public void logout() {
         System.out.println("User " + name + " logged out.");
+        AuthenticationService.getInstance().logoutUser(this.id);
     }
 
     public void updateProfile(String name, String email, String phone) {

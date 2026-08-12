@@ -31,7 +31,9 @@ public class AuthenticationService {
         registeredUsers.put(person.getId(), person);
     }
 
-
+    /**
+     * Authenticate by id/password and mark session active on success.
+     */
     public boolean authenticate(String id, String password) {
         if (id == null || password == null) {
             return false;
@@ -47,6 +49,29 @@ public class AuthenticationService {
         return true;
     }
 
+    /**
+     * Convenience: authenticate by email and password.
+     */
+    public Person authenticateByEmail(String email, String password) {
+        if (email == null || password == null) return null;
+        for (Person p : registeredUsers.values()) {
+            if (email.equalsIgnoreCase(p.getEmail()) && p.checkPassword(password)) {
+                activeSessions.put(p.getId(), p);
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Marks the person as logged-in without checking credentials.
+     * Used by test harnesses where models call login() directly.
+     */
+    public void loginUser(Person person) {
+        if (person != null && person.getId() != null) {
+            activeSessions.put(person.getId(), person);
+        }
+    }
 
     public void logoutUser(String id) {
         activeSessions.remove(id);

@@ -3,12 +3,11 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.Admin;
-import model.Passenger;
-import model.Person;
+import person.Admin;
+import person.Passenger;
+import person.Person;
+import service.AuthenticationService;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * LoginController — realizes ViewController, matches the "authenticates"
@@ -19,10 +18,6 @@ public class LoginController extends ViewController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
 
-    // Populated by the persistence layer (FileManager + DataSerializer<Person>)
-    // at startup; kept private since the diagram doesn't expose how accounts
-    // are loaded, only that LoginController authenticates a Person.
-    private final List<Person> registeredUsers = new ArrayList<>();
 
     @Override
     public void initialize() {
@@ -36,7 +31,9 @@ public class LoginController extends ViewController {
             return;
         }
 
-        Person authenticated = authenticate(usernameField.getText().trim());
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText();
+        Person authenticated = AuthenticationService.getInstance().authenticateByEmail(username, password);
 
         if (authenticated == null) {
             showAlert("Login Failed", "Invalid credentials. Please try again.");
@@ -62,15 +59,4 @@ public class LoginController extends ViewController {
                 && passwordField.getText() != null && !passwordField.getText().isEmpty();
     }
 
-    // Looks up the account by email, then defers the actual credential check
-    // to Person#login() / the protected Person#verifyPassword(), exactly as
-    // declared on the diagram (both take no extra parameters there).
-    private Person authenticate(String username) {
-        for (Person p : registeredUsers) {
-            if (p.getEmail().equalsIgnoreCase(username) && p.login()) {
-                return p;
-            }
-        }
-        return null;
-    }
 }

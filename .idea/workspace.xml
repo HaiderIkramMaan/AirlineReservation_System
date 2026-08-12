@@ -3,17 +3,37 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="creating the enum to resolve the error in model package and creating the class ailline">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/AdminDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/FlightScheduleReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/FlightScheduleReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/OccupancyReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/OccupancyReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/service/FlightRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/service/FlightRegistry.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/HP/OneDrive/Documents/GitHub/AirlineReservation_System/AirlineSystem" value="3HnrfkEjQ94TrtgfDOchEbWBoEP" />
+    </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
     <option name="cachedIndexableFilesCount" value="29" />
@@ -120,12 +140,28 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -133,6 +169,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
@@ -143,10 +180,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.customization.CustomizationConfigurable",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>

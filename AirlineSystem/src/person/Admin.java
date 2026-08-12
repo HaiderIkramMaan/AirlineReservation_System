@@ -1,5 +1,10 @@
 package person;
 
+import report.Report;
+import report.RevenueReport;
+import report.OccupancyReport;
+import report.FlightScheduleReport;
+
 public class Admin extends Person {
     private String employeeId;
     private String department;
@@ -20,8 +25,9 @@ public class Admin extends Person {
         return true;
     }
 
-    public boolean updateFlight(Object flight) {
-        System.out.println("Admin " + getName() + " updating flight.");
+    // Accept a flight id when called from controllers
+    public boolean updateFlight(String flightId) {
+        System.out.println("Admin " + getName() + " updating flight: " + flightId);
         return true;
     }
 
@@ -30,9 +36,18 @@ public class Admin extends Person {
         return true;
     }
 
-    public Object generateReport(String type) {
+    public Report generateReport(String type) {
         System.out.println("Generating report of type: " + type);
-        return null;
+        switch (type) {
+            case "Revenue":
+                return new RevenueReport(this, null);
+            case "Occupancy":
+                return new OccupancyReport(this, null);
+            case "FlightSchedule":
+                return new FlightScheduleReport(this, null);
+            default:
+                return null;
+        }
     }
 
     public void managePassengerRecords(String passengerId, String action) {

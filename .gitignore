@@ -1,2 +1,4 @@
 bin/
 *.class
+lib_mac/
+generate_reports.py

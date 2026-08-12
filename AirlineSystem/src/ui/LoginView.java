@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import person.Admin;
@@ -45,11 +46,16 @@ public class LoginView extends VBox {
 
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e -> handleLogin());
+        Button registerButton = new Button("Register");
+        registerButton.setOnAction(e -> stage.setScene(new Scene(new RegisterView(stage), 520, 520)));
+
+        HBox buttons = new HBox(10, loginButton, registerButton);
+        buttons.setAlignment(Pos.CENTER);
 
         emailField.setPromptText("john.doe@example.com");
         passwordField.setPromptText("password");
 
-        getChildren().addAll(title, form, loginButton);
+        getChildren().addAll(title, form, buttons);
     }
 
     private void handleLogin() {

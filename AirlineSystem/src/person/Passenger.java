@@ -2,9 +2,11 @@ package person;
 
 import booking.Booking;
 import flight.Flight;
+import model.FileManager;
 import payment.Payment;
 import seat.Seat;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,10 @@ public class Passenger extends Person {
         Booking booking = new Booking(UUID.randomUUID().toString(), this, flight, seat);
         booking.confirm();
         bookings.add(booking);
+
+        FileManager fm = FileManager.getInstance();
+        fm.setFilePath("data");
+        fm.appendToFile("bookings.txt", booking.getBookingId() + "|" + getId() + "|" + flight.getFlightId() + "|" + seat.getSeatId() + "|" + booking.getTotalPrice());
         return booking;
     }
 
@@ -72,6 +78,23 @@ public class Passenger extends Person {
 
     public List<Booking> viewBookingHistory() {
         System.out.println("Retrieving booking history for passenger: " + getName());
+        if (bookings.isEmpty()) {
+            FileManager fm = FileManager.getInstance();
+            fm.setFilePath("data");
+            File bookingFile = new File("data/bookings.txt");
+            if (bookingFile.exists()) {
+                String text = fm.readFromFile("bookings.txt");
+                String[] lines = text.split(System.lineSeparator());
+                for (String line : lines) {
+                    String[] parts = line.split("\\|");
+                    if (parts.length >= 5 && getId().equals(parts[1])) {
+                        Booking b = new Booking(parts[0], this, null, null);
+                        b.updateStatus(booking.BookingStatus.CONFIRMED);
+                        bookings.add(b);
+                    }
+                }
+            }
+        }
         return new ArrayList<>(bookings);
     }
 

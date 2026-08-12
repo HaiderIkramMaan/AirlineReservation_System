@@ -31,8 +31,8 @@ public class PassengerDashboardView extends BorderPane {
     private final TableView<Flight> flightTable = new TableView<>();
     private final TableView<Booking> bookingTable = new TableView<>();
     private final ListView<String> seatList = new ListView<>();
-    private final TextField sourceField = new TextField("NYC");
-    private final TextField destinationField = new TextField("LON");
+    private final TextField sourceField = new TextField();
+    private final TextField destinationField = new TextField();
     private final DatePicker datePicker = new DatePicker(LocalDate.now());
 
     public PassengerDashboardView(Stage stage, Passenger passenger) {
@@ -46,13 +46,23 @@ public class PassengerDashboardView extends BorderPane {
         setPadding(new Insets(16));
 
         HBox searchBox = new HBox(10);
-        sourceField.setPromptText("Source");
-        destinationField.setPromptText("Destination");
+        searchBox.setPadding(new Insets(0, 0, 12, 0));
+        sourceField.setPromptText("Source (optional)");
+        destinationField.setPromptText("Destination (optional)");
+        sourceField.setPrefWidth(120);
+        destinationField.setPrefWidth(120);
+        datePicker.setPrefWidth(150);
         Button searchButton = new Button("Search Flights");
         searchButton.setOnAction(e -> searchFlights());
+        Button showAllButton = new Button("Show All");
+        showAllButton.setOnAction(e -> {
+            sourceField.clear();
+            destinationField.clear();
+            searchFlights();
+        });
         Button logoutButton = new Button("Logout");
         logoutButton.setOnAction(e -> stage.setScene(new Scene(new LoginView(stage), 480, 260)));
-        searchBox.getChildren().addAll(new Label("From:"), sourceField, new Label("To:"), destinationField, datePicker, searchButton, logoutButton);
+        searchBox.getChildren().addAll(new Label("From:"), sourceField, new Label("To:"), destinationField, new Label("Date:"), datePicker, searchButton, showAllButton, logoutButton);
 
         TableColumn<Flight, String> flightNoCol = new TableColumn<>("Flight");
         flightNoCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getFlightNumber()));
@@ -62,6 +72,7 @@ public class PassengerDashboardView extends BorderPane {
         departCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getDepartureTime().toString()));
         flightTable.getColumns().addAll(flightNoCol, routeCol, departCol);
         flightTable.setPrefHeight(240);
+        flightTable.setPrefWidth(560);
         flightTable.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue != null) fillSeatChoices(newValue);
         });
@@ -71,6 +82,7 @@ public class PassengerDashboardView extends BorderPane {
 
         VBox right = new VBox(10);
         right.setPadding(new Insets(0, 0, 0, 12));
+        right.setPrefWidth(260);
         right.getChildren().addAll(new Label("Available Seats"), seatList, bookButton);
 
         HBox center = new HBox(12);
@@ -86,6 +98,7 @@ public class PassengerDashboardView extends BorderPane {
         bookingTable.getColumns().addAll(bookingIdCol, statusCol, totalCol);
 
         VBox bottom = new VBox(8);
+        bottom.setPadding(new Insets(12, 0, 0, 0));
         bottom.getChildren().addAll(new Label("Booking History"), bookingTable);
 
         setTop(searchBox);
@@ -109,7 +122,12 @@ public class PassengerDashboardView extends BorderPane {
     private void fillSeatChoices(Flight flight) {
         seatList.getItems().clear();
         if (flight == null) return;
-        for (Seat seat : flight.getAvailableSeats()) {
+        List<Seat> availableSeatList = flight.getAvailableSeats();
+        if (availableSeatList.isEmpty()) {
+            seatList.getItems().add("No seats available");
+            return;
+        }
+        for (Seat seat : availableSeatList) {
             seatList.getItems().add(seat.getSeatId() + " - " + seat.getTravelClass() + " ($" + String.format("%.2f", seat.getPrice(flight.getBasePrice())) + ")");
         }
     }

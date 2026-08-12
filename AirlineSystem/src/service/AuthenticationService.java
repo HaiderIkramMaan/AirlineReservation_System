@@ -1,57 +1,52 @@
 package service;
 
+import model.FileManager;
+import person.Admin;
+import person.Passenger;
 import person.Person;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 public class AuthenticationService {
-
     private static final AuthenticationService INSTANCE = new AuthenticationService();
-
-    // All known users, keyed by id. Populated whenever a Person is constructed.
     private final Map<String, Person> registeredUsers = new ConcurrentHashMap<>();
-
-    // Currently logged-in users, keyed by id.
     private final Map<String, Person> activeSessions = new ConcurrentHashMap<>();
 
     private AuthenticationService() {
+        loadUsersFromFile();
     }
 
     public static AuthenticationService getInstance() {
         return INSTANCE;
     }
 
-
     public void registerUser(Person person) {
         if (person == null || person.getId() == null) {
             throw new IllegalArgumentException("Person and Person id must not be null");
         }
+        if (person.getEmail() != null) {
+            for (Person existing : registeredUsers.values()) {
+                if (person.getEmail().equalsIgnoreCase(existing.getEmail())) {
+                    return;
+                }
+            }
+        }
         registeredUsers.put(person.getId(), person);
+        saveUsersToFile();
     }
 
-    /**
-     * Authenticate by id/password and mark session active on success.
-     */
     public boolean authenticate(String id, String password) {
-        if (id == null || password == null) {
-            return false;
-        }
+        if (id == null || password == null) return false;
         Person person = registeredUsers.get(id);
-        if (person == null) {
-            return false;
-        }
-        if (!person.checkPassword(password)) {
-            return false;
-        }
+        if (person == null || !person.checkPassword(password)) return false;
         activeSessions.put(id, person);
         return true;
     }
 
-    /**
-     * Convenience: authenticate by email and password.
-     */
     public Person authenticateByEmail(String email, String password) {
         if (email == null || password == null) return null;
         for (Person p : registeredUsers.values()) {
@@ -63,10 +58,6 @@ public class AuthenticationService {
         return null;
     }
 
-    /**
-     * Marks the person as logged-in without checking credentials.
-     * Used by test harnesses where models call login() directly.
-     */
     public void loginUser(Person person) {
         if (person != null && person.getId() != null) {
             activeSessions.put(person.getId(), person);
@@ -83,5 +74,61 @@ public class AuthenticationService {
 
     public Person getActiveUser(String id) {
         return activeSessions.get(id);
+    }
+
+    public List<Person> getRegisteredUsers() {
+        return new ArrayList<>(registeredUsers.values());
+    }
+
+    public void saveUsersToFile() {
+        FileManager fm = FileManager.getInstance();
+        fm.setFilePath("data");
+        StringBuilder content = new StringBuilder();
+        for (Person p : registeredUsers.values()) {
+            if (p instanceof Admin) {
+                Admin a = (Admin) p;
+                content.append("ADMIN|")
+                        .append(a.getId()).append("|")
+                        .append(a.getName()).append("|")
+                        .append(a.getEmail()).append("|")
+                        .append(a.getPassword()).append("|")
+                        .append(a.getPhone()).append("|")
+                        .append(a.getEmployeeId()).append("|")
+                        .append(a.getDepartment()).append(System.lineSeparator());
+            } else if (p instanceof Passenger) {
+                Passenger pa = (Passenger) p;
+                content.append("PASSENGER|")
+                        .append(pa.getId()).append("|")
+                        .append(pa.getName()).append("|")
+                        .append(pa.getEmail()).append("|")
+                        .append(pa.getPassword()).append("|")
+                        .append(pa.getPhone()).append("|")
+                        .append(pa.getPassportNumber()).append("|")
+                        .append(pa.getVisaEntryRequirements()).append(System.lineSeparator());
+            }
+        }
+        fm.writeToJson("users.json", content.toString());
+    }
+
+    public void loadUsersFromFile() {
+        FileManager fm = FileManager.getInstance();
+        fm.setFilePath("data");
+        File f = new File("data/users.json");
+        if (!f.exists()) return;
+        String text = fm.readFromJson("users.json");
+        if (text == null || text.isBlank()) return;
+        String[] lines = text.split(System.lineSeparator());
+        for (String line : lines) {
+            if (line == null || line.isBlank()) continue;
+            String[] parts = line.split("\\|");
+            if (parts.length < 7) continue;
+            if ("ADMIN".equals(parts[0])) {
+                Admin admin = new Admin(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts.length > 7 ? parts[7] : "");
+                registeredUsers.put(admin.getId(), admin);
+            } else if ("PASSENGER".equals(parts[0])) {
+                Passenger passenger = new Passenger(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts.length > 7 ? parts[7] : "");
+                registeredUsers.put(passenger.getId(), passenger);
+            }
+        }
     }
 }

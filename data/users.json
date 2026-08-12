@@ -1,0 +1,5 @@
+PASSENGER|P2394|abdullah|a@gmail.com|123|23|abg|cdf
+PASSENGER|P101|John Doe|john.doe@example.com|securePass123|+1234567890|A98765432|Visa Not Required
+ADMIN|A501|Alice Smith|alice.admin@airline.com|adminPass456|+0987654321|EMP-001|Flight Operations
+ADMIN|A1001|Demo Admin|admin@example.com|adminPass|+1000000001|null|null
+PASSENGER|P1001|Demo Passenger|demo@example.com|demoPass|+1000000000|PP1001|Visa not required

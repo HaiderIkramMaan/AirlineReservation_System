@@ -1,5 +1,8 @@
 package flight;
 
+import seat.BusinessSeat;
+import seat.EconomySeat;
+import seat.FirstClassSeat;
 import seat.Seat;
 import seat.TravelClass;
 
@@ -11,6 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Flight {
+    private static final int DEFAULT_TOTAL_SEATS = 20;
+    private static final int DEFAULT_ECONOMY_SEATS = 10; // 50%
+    private static final int DEFAULT_BUSINESS_SEATS = 6; // 30%
+    private static final int DEFAULT_FIRST_CLASS_SEATS = 4; // 20%
 
     private String flightId;
     private String flightNumber;
@@ -74,6 +81,29 @@ public class Flight {
 
     public void addSeat(Seat seat) {
         seats.add(seat);
+    }
+
+    public void ensureDefaultSeatScheme() {
+        if (seats.isEmpty()) {
+            applyDefaultSeatScheme();
+        }
+    }
+
+    public void applyDefaultSeatScheme() {
+        seats.clear();
+        for (int i = 1; i <= DEFAULT_ECONOMY_SEATS; i++) {
+            addSeat(new EconomySeat("E-" + flightNumber + "-" + i, "E" + i, i, 1));
+        }
+        for (int i = 1; i <= DEFAULT_BUSINESS_SEATS; i++) {
+            addSeat(new BusinessSeat("B-" + flightNumber + "-" + i, "B" + i, i, 2));
+        }
+        for (int i = 1; i <= DEFAULT_FIRST_CLASS_SEATS; i++) {
+            addSeat(new FirstClassSeat("F-" + flightNumber + "-" + i, "F" + i, i, 3));
+        }
+    }
+
+    public static int getDefaultTotalSeats() {
+        return DEFAULT_TOTAL_SEATS;
     }
 
     public boolean removeSeat(String seatId) {

@@ -22,6 +22,7 @@ public class FlightRegistry {
 
     public void registerFlight(Flight flight) {
         if (flight == null) return;
+        flight.ensureDefaultSeatScheme();
         synchronized (flights) {
             if (flight.getFlightId() != null) {
                 flights.removeIf(f -> f.getFlightId() != null && f.getFlightId().equalsIgnoreCase(flight.getFlightId()));
@@ -116,6 +117,7 @@ public class FlightRegistry {
                         origin,
                         destination
                 );
+                flight.ensureDefaultSeatScheme();
                 flights.add(flight);
             } catch (Exception ignore) {
             }

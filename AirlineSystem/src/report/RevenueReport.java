@@ -3,6 +3,7 @@ package report;
 // TODO: adjust to match your teammates' actual package names
 import person.Admin;
 import booking.Booking;
+import booking.BookingStatus;
 import model.FileManager;
 
 import java.io.File;
@@ -78,7 +79,15 @@ public class RevenueReport extends Report {
 
             try {
                 double amount = Double.parseDouble(parts[4]);
-                parsedBookings.add(new FileBackedBooking(amount));
+                BookingStatus status = BookingStatus.CONFIRMED;
+                if (parts.length >= 6) {
+                    try {
+                        status = BookingStatus.valueOf(parts[5].trim().toUpperCase());
+                    } catch (IllegalArgumentException ignored) {
+                        status = BookingStatus.CONFIRMED;
+                    }
+                }
+                parsedBookings.add(new FileBackedBooking(amount, status));
             } catch (NumberFormatException ignored) {
             }
         }
@@ -88,10 +97,10 @@ public class RevenueReport extends Report {
     private static final class FileBackedBooking extends Booking {
         private final double storedTotal;
 
-        private FileBackedBooking(double storedTotal) {
+        private FileBackedBooking(double storedTotal, BookingStatus status) {
             super("FILE", null, null, null);
             this.storedTotal = storedTotal;
-            updateStatus(booking.BookingStatus.CONFIRMED);
+            updateStatus(status == null ? BookingStatus.CONFIRMED : status);
         }
 
         @Override

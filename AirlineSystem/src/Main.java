@@ -11,6 +11,7 @@ import person.Passenger;
 import seat.BusinessSeat;
 import seat.EconomySeat;
 import seat.FirstClassSeat;
+import seat.TravelClass;
 import service.AuthenticationService;
 import ui.LoginView;
 
@@ -60,6 +61,7 @@ public class Main extends Application {
         if (needsDemoFlightSeed()) {
             seedFlights();
         }
+        normalizeDefaultSeatSchemes();
     }
 
     private static boolean needsDemoFlightSeed() {
@@ -137,19 +139,30 @@ public class Main extends Application {
                 origin,
                 destination
         );
-
-        for (int r = 1; r <= 10; r++) {
-            flight.addSeat(new EconomySeat("E-" + flightNumber + "-" + r, "E" + r, r, 1));
-        }
-        for (int r = 1; r <= 4; r++) {
-            flight.addSeat(new BusinessSeat("B-" + flightNumber + "-" + r, "B" + r, r, 2));
-        }
-        for (int r = 1; r <= 2; r++) {
-            flight.addSeat(new FirstClassSeat("F-" + flightNumber + "-" + r, "F" + r, r, 3));
-        }
+        flight.applyDefaultSeatScheme();
 
         FlightRegistry.getInstance().registerFlight(flight);
         return flight;
+    }
+
+    private static void normalizeDefaultSeatSchemes() {
+        boolean changed = false;
+        for (Flight flight : FlightRegistry.getInstance().getAllFlights()) {
+            if (!hasDefaultSeatScheme(flight)) {
+                flight.applyDefaultSeatScheme();
+                changed = true;
+            }
+        }
+        if (changed) {
+            FlightRegistry.getInstance().saveToFile();
+        }
+    }
+
+    private static boolean hasDefaultSeatScheme(Flight flight) {
+        int economy = (int) flight.getSeats().stream().filter(s -> s.getTravelClass() == TravelClass.ECONOMY).count();
+        int business = (int) flight.getSeats().stream().filter(s -> s.getTravelClass() == TravelClass.BUSINESS).count();
+        int first = (int) flight.getSeats().stream().filter(s -> s.getTravelClass() == TravelClass.FIRST_CLASS).count();
+        return flight.getSeats().size() == Flight.getDefaultTotalSeats() && economy == 10 && business == 6 && first == 4;
     }
 
     private static void markSeatUnavailable(Flight flight, String seatId) {

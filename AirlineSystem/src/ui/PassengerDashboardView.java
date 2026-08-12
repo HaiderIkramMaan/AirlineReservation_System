@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,7 +31,7 @@ public class PassengerDashboardView extends BorderPane {
     private final Passenger passenger;
     private final TableView<Flight> flightTable = new TableView<>();
     private final TableView<Booking> bookingTable = new TableView<>();
-    private final ListView<String> seatList = new ListView<>();
+    private final ListView<Seat> seatList = new ListView<>();
     private final TextField sourceField = new TextField();
     private final TextField destinationField = new TextField();
     private final DatePicker datePicker = new DatePicker(LocalDate.now());
@@ -83,6 +84,21 @@ public class PassengerDashboardView extends BorderPane {
         VBox right = new VBox(10);
         right.setPadding(new Insets(0, 0, 0, 12));
         right.setPrefWidth(260);
+        seatList.setCellFactory(list -> new ListCell<>() {
+            @Override
+            protected void updateItem(Seat seat, boolean empty) {
+                super.updateItem(seat, empty);
+                if (empty || seat == null) {
+                    setText(null);
+                    setStyle("");
+                    return;
+                }
+                Flight selectedFlight = flightTable.getSelectionModel().getSelectedItem();
+                double price = selectedFlight == null ? 0.0 : seat.getPrice(selectedFlight.getBasePrice());
+                setText(seat.getSeatId() + " - " + seat.getTravelClass() + " ($" + String.format("%.2f", price) + ")");
+                setStyle("-fx-text-fill: " + seat.getLayoutColor() + "; -fx-font-weight: bold;");
+            }
+        });
         right.getChildren().addAll(new Label("Available Seats"), seatList, bookButton);
 
         HBox center = new HBox(12);
@@ -91,15 +107,21 @@ public class PassengerDashboardView extends BorderPane {
         bookingTable.setPrefHeight(180);
         TableColumn<Booking, String> bookingIdCol = new TableColumn<>("Booking");
         bookingIdCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getBookingId()));
+        TableColumn<Booking, String> bookingFlightCol = new TableColumn<>("Flight");
+        bookingFlightCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getFlightReference()));
+        TableColumn<Booking, String> bookingSeatCol = new TableColumn<>("Seat");
+        bookingSeatCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getSeatReference()));
         TableColumn<Booking, String> statusCol = new TableColumn<>("Status");
         statusCol.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getStatus().toString()));
         TableColumn<Booking, String> totalCol = new TableColumn<>("Total");
         totalCol.setCellValueFactory(item -> new SimpleStringProperty(String.format("$%.2f", item.getValue().getTotalPrice())));
-        bookingTable.getColumns().addAll(bookingIdCol, statusCol, totalCol);
+        bookingTable.getColumns().addAll(bookingIdCol, bookingFlightCol, bookingSeatCol, statusCol, totalCol);
+        Button cancelBookingButton = new Button("Cancel Selected Booking");
+        cancelBookingButton.setOnAction(e -> cancelSelectedBooking());
 
         VBox bottom = new VBox(8);
         bottom.setPadding(new Insets(12, 0, 0, 0));
-        bottom.getChildren().addAll(new Label("Booking History"), bookingTable);
+        bottom.getChildren().addAll(new Label("Booking History"), bookingTable, cancelBookingButton);
 
         setTop(searchBox);
         setCenter(center);
@@ -124,12 +146,11 @@ public class PassengerDashboardView extends BorderPane {
         if (flight == null) return;
         List<Seat> availableSeatList = flight.getAvailableSeats();
         if (availableSeatList.isEmpty()) {
-            seatList.getItems().add("No seats available");
+            seatList.setPlaceholder(new Label("No seats available"));
             return;
         }
-        for (Seat seat : availableSeatList) {
-            seatList.getItems().add(seat.getSeatId() + " - " + seat.getTravelClass() + " ($" + String.format("%.2f", seat.getPrice(flight.getBasePrice())) + ")");
-        }
+        seatList.setPlaceholder(new Label("Select a flight to view seats"));
+        seatList.getItems().setAll(availableSeatList);
     }
 
     private void bookSelectedSeat() {
@@ -139,20 +160,9 @@ public class PassengerDashboardView extends BorderPane {
             return;
         }
 
-        String selectedSeatText = seatList.getSelectionModel().getSelectedItem();
-        if (selectedSeatText == null) {
-            showAlert("Booking Error", "Choose a seat to book.");
-            return;
-        }
-
-        String seatId = selectedSeatText.split(" - ")[0];
-        Seat selectedSeat = selectedFlight.getAvailableSeats().stream()
-                .filter(s -> s.getSeatId().equals(seatId))
-                .findFirst()
-                .orElse(null);
-
+        Seat selectedSeat = seatList.getSelectionModel().getSelectedItem();
         if (selectedSeat == null) {
-            showAlert("Booking Error", "Seat not available.");
+            showAlert("Booking Error", "Choose a seat to book.");
             return;
         }
 
@@ -169,6 +179,27 @@ public class PassengerDashboardView extends BorderPane {
 
     private void refreshBookings() {
         bookingTable.getItems().setAll(passenger.viewBookingHistory());
+    }
+
+    private void cancelSelectedBooking() {
+        Booking selectedBooking = bookingTable.getSelectionModel().getSelectedItem();
+        if (selectedBooking == null) {
+            showAlert("Cancel Booking", "Select a booking first.");
+            return;
+        }
+        if ("CANCELLED".equalsIgnoreCase(selectedBooking.getStatus().toString())) {
+            showAlert("Cancel Booking", "This booking is already cancelled.");
+            return;
+        }
+
+        boolean cancelled = passenger.cancelBooking(selectedBooking.getBookingId());
+        if (cancelled) {
+            showAlert("Booking Cancelled", "Booking " + selectedBooking.getBookingId() + " has been cancelled.");
+            refreshBookings();
+            searchFlights();
+        } else {
+            showAlert("Cancel Failed", "Unable to cancel booking.");
+        }
     }
 
     private void showAlert(String title, String message) {

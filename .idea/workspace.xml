@@ -8,22 +8,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="creating the enum to resolve the error in model package and creating the class ailline">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/PassengerDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/SeatMapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/controller/ViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/FlightScheduleReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/FlightScheduleReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/OccupancyReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/OccupancyReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/event/ActionEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/event/EventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/fxml/FXML.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/fxml/FXMLLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/Parent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/Scene.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/Alert.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/Button.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/ComboBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/PasswordField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/TableView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/control/TextField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/scene/layout/GridPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/javafx/stage/Stage.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

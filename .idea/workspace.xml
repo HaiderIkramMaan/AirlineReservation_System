@@ -8,17 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d933c5ea-b329-4fdc-8a77-77967b4395d1" name="Changes" comment="creating the enum to resolve the error in model package and creating the class ailline">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/data/bookings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/data/bookings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/data/flights.json" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/data/flights.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/data/users.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/booking/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/booking/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/flight/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/flight/FlightRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/flight/FlightRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/person/Passenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/report/RevenueReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/ui/PassengerDashboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/ui/PassengerDashboardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AirlineSystem/src/ui/AdminDashboardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/AirlineSystem/src/ui/AdminDashboardView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

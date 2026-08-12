@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import person.Admin;
@@ -62,6 +63,7 @@ public class AdminDashboardView extends BorderPane {
         addFlightButton.setOnAction(e -> addFlightFromForm());
         Button removeFlightButton = new Button("Remove Selected Flight");
         removeFlightButton.setOnAction(e -> removeSelectedFlight());
+        HBox flightActions = new HBox(8, addFlightButton, removeFlightButton);
         Button logoutButton = new Button("Logout");
         logoutButton.setOnAction(e -> stage.setScene(new Scene(new LoginView(stage), 500, 280)));
 
@@ -74,13 +76,12 @@ public class AdminDashboardView extends BorderPane {
                 new Label("Destination"), destinationField,
                 new Label("Departure (yyyy-MM-ddTHH:mm)"), departureField,
                 new Label("Arrival (yyyy-MM-ddTHH:mm)"), arrivalField,
-                new Label("Base Price"), priceField,
-                addFlightButton
+                new Label("Base Price"), priceField
         );
 
         VBox controls = new VBox(10);
         controls.setPrefWidth(260);
-        controls.getChildren().addAll(title, revenueButton, occupancyButton, flightsButton, addDemoButton, removeFlightButton, form, logoutButton);
+        controls.getChildren().addAll(title, revenueButton, occupancyButton, flightsButton, addDemoButton, flightActions, form, logoutButton);
 
         // Ensure logout stays visible even when the left panel is compressed.
         controls.setFillWidth(true);

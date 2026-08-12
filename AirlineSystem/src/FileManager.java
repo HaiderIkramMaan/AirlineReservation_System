@@ -1,18 +1,26 @@
+package model;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public abstract class FileManager {
+public class FileManager {
+    private static final FileManager INSTANCE = new FileManager();
+
     private String filePath;
 
-    public FileManager() {
+    private FileManager() {
         this.filePath = "./data/";
     }
 
     public FileManager(String filePath) {
         this.filePath = filePath;
+    }
+
+    public static FileManager getInstance() {
+        return INSTANCE;
     }
 
     public boolean createFile(String filename) {
@@ -98,5 +106,17 @@ public abstract class FileManager {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    // Loads lines from a file in the configured filePath directory; returns null if missing
+    public java.util.List<String> loadFromFile(String filename) {
+        try {
+            java.nio.file.Path p = java.nio.file.Paths.get(filePath, filename);
+            if (!java.nio.file.Files.exists(p)) return null;
+            return java.nio.file.Files.readAllLines(p);
+        } catch (java.io.IOException e) {
+            System.err.println("Error loading file: " + e.getMessage());
+            return null;
+        }
     }
 }

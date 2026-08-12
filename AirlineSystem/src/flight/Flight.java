@@ -45,6 +45,10 @@ public class Flight {
         if (airline != null) {
             airline.addFlight(this);
         }
+        // Register with global flight registry as described in the UML
+        try {
+            FlightRegistry.getInstance().registerFlight(this);
+        } catch (Exception ignored) {}
     }
 
     public List<Seat> getAvailableSeats() {

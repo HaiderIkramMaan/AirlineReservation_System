@@ -1,5 +1,16 @@
 package person;
 
+import flight.Airline;
+import flight.Airport;
+import flight.Flight;
+import flight.FlightRegistry;
+import report.Report;
+import report.RevenueReport;
+import report.OccupancyReport;
+import report.FlightScheduleReport;
+
+import java.time.LocalDateTime;
+
 public class Admin extends Person {
     private String employeeId;
     private String department;
@@ -15,24 +26,52 @@ public class Admin extends Person {
         this.department = department;
     }
 
-    public boolean addFlight(Object flight) {
-        System.out.println("Admin " + getName() + " adding flight.");
+    public boolean addFlight(Flight flight) {
+        if (flight == null) {
+            return false;
+        }
+        System.out.println("Admin " + getName() + " adding flight " + flight.getFlightNumber() + ".");
+        FlightRegistry.getInstance().registerFlight(flight);
         return true;
     }
 
-    public boolean updateFlight(Object flight) {
-        System.out.println("Admin " + getName() + " updating flight.");
+    public boolean addFlight(String flightId, String flightNumber, LocalDateTime departureTime,
+                             LocalDateTime arrivalTime, double basePrice,
+                             Airline airline, Airport origin, Airport destination) {
+        if (flightId == null || flightNumber == null || departureTime == null || arrivalTime == null) {
+            return false;
+        }
+        Flight flight = new Flight(flightId, flightNumber, departureTime, arrivalTime, basePrice, airline, origin, destination);
+        return addFlight(flight);
+    }
+
+    public boolean updateFlight(String flightId) {
+        System.out.println("Admin " + getName() + " updating flight: " + flightId);
         return true;
     }
 
     public boolean removeFlight(String flightId) {
         System.out.println("Admin " + getName() + " removing flight: " + flightId);
-        return true;
+        for (Flight flight : FlightRegistry.getInstance().getAllFlights()) {
+            if (flight.getFlightId().equalsIgnoreCase(flightId) || flight.getFlightNumber().equalsIgnoreCase(flightId)) {
+                return FlightRegistry.getInstance().removeFlight(flight);
+            }
+        }
+        return false;
     }
 
-    public Object generateReport(String type) {
+    public Report generateReport(String type) {
         System.out.println("Generating report of type: " + type);
-        return null;
+        switch (type) {
+            case "Revenue":
+                return new RevenueReport(this, null);
+            case "Occupancy":
+                return new OccupancyReport(this, null);
+            case "FlightSchedule":
+                return new FlightScheduleReport(this, null);
+            default:
+                return null;
+        }
     }
 
     public void managePassengerRecords(String passengerId, String action) {

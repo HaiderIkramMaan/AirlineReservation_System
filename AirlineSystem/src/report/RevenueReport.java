@@ -2,9 +2,11 @@ package report;
 
 // TODO: adjust to match your teammates' actual package names
 import person.Admin;
-import model.Booking;
+import booking.Booking;
+import model.FileManager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +25,20 @@ public class RevenueReport extends Report {
     @Override
     public void generate() {
         totalRevenue = 0.0;
-        if (bookingList == null) {
+        List<Booking> sourceBookings = bookingList;
+        if (sourceBookings == null) {
+            sourceBookings = loadBookingsFromFile();
+        }
+        if (sourceBookings == null) {
             return;
         }
-        for (Booking booking : bookingList) {
+        for (Booking booking : sourceBookings) {
             // Only count bookings that actually completed
             if (booking.getStatus() != null && "CONFIRMED".equals(booking.getStatus().toString())) {
                 totalRevenue += booking.getTotalPrice();
             }
         }
+        bookingList = sourceBookings;
     }
 
     @Override
@@ -48,5 +55,48 @@ public class RevenueReport extends Report {
 
     public double getTotalRevenue() {
         return totalRevenue;
+    }
+
+    private List<Booking> loadBookingsFromFile() {
+        FileManager fileManager = FileManager.getInstance();
+        fileManager.setFilePath("data");
+        String text = fileManager.readFromFile("bookings.txt");
+        if (text == null || text.isBlank()) {
+            return new ArrayList<>();
+        }
+
+        List<Booking> parsedBookings = new ArrayList<>();
+        String[] lines = text.split(System.lineSeparator());
+        for (String line : lines) {
+            if (line == null || line.isBlank()) {
+                continue;
+            }
+            String[] parts = line.split("\\|");
+            if (parts.length < 5) {
+                continue;
+            }
+
+            try {
+                double amount = Double.parseDouble(parts[4]);
+                parsedBookings.add(new FileBackedBooking(amount));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return parsedBookings;
+    }
+
+    private static final class FileBackedBooking extends Booking {
+        private final double storedTotal;
+
+        private FileBackedBooking(double storedTotal) {
+            super("FILE", null, null, null);
+            this.storedTotal = storedTotal;
+            updateStatus(booking.BookingStatus.CONFIRMED);
+        }
+
+        @Override
+        public double getTotalPrice() {
+            return storedTotal;
+        }
     }
 }

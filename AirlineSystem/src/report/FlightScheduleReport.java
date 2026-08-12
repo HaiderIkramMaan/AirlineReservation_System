@@ -2,14 +2,12 @@ package report;
 
 // TODO: adjust to match your teammates' actual package names
 import person.Admin;
-import model.Flight;
+import flight.Flight;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import person.Admin;
 
 /**
  * Report listing scheduled flights, ordered by departure time.

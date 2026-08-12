@@ -2,10 +2,9 @@ package report;
 
 // TODO: adjust to match your teammates' actual package names
 import person.Admin;
-import model.Flight;
+import flight.Flight;
 
 import java.io.File;
-import model.Flight;
 /**
  * Report showing how full a specific flight is.
  */

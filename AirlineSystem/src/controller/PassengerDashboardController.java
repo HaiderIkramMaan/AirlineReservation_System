@@ -3,10 +3,10 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.Booking;
-import model.Flight;
-import model.Passenger;
-import model.Payment;
+import booking.Booking;
+import flight.Flight;
+import person.Passenger;
+import payment.Payment;
 import seat.Seat;
 
 import java.time.LocalDate;

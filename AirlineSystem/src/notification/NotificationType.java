@@ -1,3 +1,5 @@
+package notification;
+
 public enum NotificationType {
     BOOKING_CONFIRMATION,
     CANCELLATION,

@@ -1,3 +1,5 @@
+package notification;
+
 import java.time.LocalDateTime;
 import person.Person;
 
@@ -26,7 +28,7 @@ public class Notification {
             return false;
         }
         System.out.println("----------------------------------------");
-        System.out.println("Sending [" + type + "] Notification to " + recipient.getName() + " (" + recipient.getEmail() + "):");
+        System.out.println("Sending [" + type + "] notification.Notification to " + recipient.getName() + " (" + recipient.getEmail() + "):");
         System.out.println("Message: " + message);
         System.out.println("Time: " + timestamp);
         System.out.println("----------------------------------------");

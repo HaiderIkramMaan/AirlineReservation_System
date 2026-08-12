@@ -90,14 +90,17 @@ public class FlightRegistry {
                     .append(f.getDestination().getCity()).append("|")
                     .append(f.getDestination().getIataCode()).append(System.lineSeparator());
         }
-        fm.writeToJson("flights.json", content.toString());
+        fm.writeToData("flights", content.toString());
     }
 
     public void loadFromFile() {
         FileManager fm = FileManager.getInstance();
         fm.setFilePath("data");
-        String text = fm.readFromJson("flights.json");
+        String text = fm.readFromData("flights");
         if (text == null || text.isBlank()) return;
+        if (!new java.io.File("data", "flights.dat").exists()) {
+            fm.writeToData("flights", text);
+        }
         String[] lines = text.split(System.lineSeparator());
         for (String line : lines) {
             if (line == null || line.isBlank()) continue;

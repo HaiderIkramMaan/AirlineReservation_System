@@ -1,0 +1,6 @@
+ADMIN|A1|Admin|a@a.com|p|+1|null|null
+PASSENGER|P4783|zohaib|zas@gmail.com|zas12345|12345|null|null
+PASSENGER|P101|John Doe|john.doe@example.com|securePass123|+1234567890|A98765432|Visa Not Required
+ADMIN|A501|Alice Smith|alice.admin@airline.com|adminPass456|+0987654321|null|null
+PASSENGER|P1222|ah|a@gmail.com|123|12|null|null
+PASSENGER|P6962|Haider Ikram|haider@gmail.com|1234|03214567899|null|null

@@ -2,27 +2,59 @@
 setlocal EnableDelayedExpansion
 cd /d "%~dp0"
 
-if not exist "javafx-sdk\javafx-sdk-21.0.2\lib" (
-    echo JavaFX SDK not found at: %CD%\javafx-sdk\javafx-sdk-21.0.2\lib
-    echo Please ensure the JavaFX SDK is present in the project folder.
+set "PROJECT_DIR=%~dp0"
+set "JFX="
+
+if exist "%PROJECT_DIR%javafx-sdk\lib" (
+    set "JFX=%PROJECT_DIR%javafx-sdk\lib"
+) else if exist "%PROJECT_DIR%javafx-sdk\javafx-sdk-21.0.2\lib" (
+    set "JFX=%PROJECT_DIR%javafx-sdk\javafx-sdk-21.0.2\lib"
+) else (
+    for /d %%D in ("%PROJECT_DIR%javafx-sdk\*") do (
+        if exist "%%~fD\lib" (
+            set "JFX=%%~fD\lib"
+        )
+    )
+)
+
+if not defined JFX (
+    echo JavaFX SDK not found.
+    echo Expected a JavaFX SDK under: %PROJECT_DIR%javafx-sdk
+    echo or: %PROJECT_DIR%javafx-sdk\javafx-sdk-21.0.2\lib
+    echo Install or extract the JavaFX SDK and try again.
     pause
     exit /b 1
 )
 
 if not exist "out" mkdir out
 
-set "JFX=%CD%\javafx-sdk\javafx-sdk-21.0.2\lib"
+if defined JAVA_HOME (
+    set "JAVAC=%JAVA_HOME%\bin\javac.exe"
+    set "JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+) else (
+    where javac >nul 2>nul
+    if errorlevel 1 (
+        echo JDK not found in PATH.
+        echo Install a JDK or set JAVA_HOME and try again.
+        pause
+        exit /b 1
+    )
+    set "JAVAC=javac"
+    set "JAVA_CMD=java"
+)
 
-where javac >nul 2>nul
-if errorlevel 1 (
-    echo JDK not found in PATH.
-    echo Install a JDK and try again.
-    pause
-    exit /b 1
+if not defined JAVA_HOME (
+    where java >nul 2>nul
+    if errorlevel 1 (
+        echo Java runtime not found in PATH.
+        echo Install a JDK or set JAVA_HOME and try again.
+        pause
+        exit /b 1
+    )
 )
 
 set "SRC_FILES="
-for /r "src" %%f in (*.java) do (
+for /r "%PROJECT_DIR%src" %%f in (*.java) do (
     set "SRC_FILES=!SRC_FILES! "%%~ff""
 )
 
@@ -33,7 +65,7 @@ if not defined SRC_FILES (
 )
 
 rem Compile all Java sources into the out directory
-javac --module-path "%JFX%" --add-modules javafx.controls,javafx.fxml -d out !SRC_FILES!
+"%JAVAC%" --module-path "%JFX%" --add-modules javafx.controls,javafx.fxml -d out !SRC_FILES!
 if errorlevel 1 (
     echo Compile failed.
     pause
@@ -41,5 +73,5 @@ if errorlevel 1 (
 )
 
 rem Run the application
-java --module-path "%JFX%" --add-modules javafx.controls,javafx.fxml -cp out Main
+"%JAVA_CMD%" --module-path "%JFX%" --add-modules javafx.controls,javafx.fxml -cp out Main
 exit /b %errorlevel%

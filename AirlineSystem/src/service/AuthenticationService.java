@@ -107,16 +107,22 @@ public class AuthenticationService {
                         .append(pa.getVisaEntryRequirements()).append(System.lineSeparator());
             }
         }
-        fm.writeToJson("users.json", content.toString());
+        fm.writeToData("users", content.toString());
     }
 
     public void loadUsersFromFile() {
         FileManager fm = FileManager.getInstance();
         fm.setFilePath("data");
-        File f = new File("data/users.json");
-        if (!f.exists()) return;
-        String text = fm.readFromJson("users.json");
+        File datFile = new File("data/users.dat");
+        if (!datFile.exists()) {
+            File legacyJsonFile = new File("data/users.json");
+            if (!legacyJsonFile.exists()) return;
+        }
+        String text = fm.readFromData("users");
         if (text == null || text.isBlank()) return;
+        if (!datFile.exists()) {
+            fm.writeToData("users", text);
+        }
         String[] lines = text.split(System.lineSeparator());
         for (String line : lines) {
             if (line == null || line.isBlank()) continue;
